@@ -4,9 +4,9 @@
 
     let apiUrl;
     if (dev) {
-        apiUrl = '//local-w10.sakynasty.com/api/uptimerobot';
+        apiUrl = '//local-w10.sakynasty.com/api/api/uptimerobot/monitors';
     } else {
-        apiUrl = '//api.sakynasty.com/uptimerobot';
+        apiUrl = '//api.sakynasty.com/api/uptimerobot/monitors';
     }
 
     const getUptime = async () => {
