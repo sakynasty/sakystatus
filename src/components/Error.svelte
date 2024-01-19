@@ -21,7 +21,9 @@
 		</div>
 	</div>
 
-	<a href="/monitors" title="SakyStatus" rel="noopener"><p class="text-center">Try reloading...</p></a>
+	<a href="/monitors" title="SakyStatus" rel="noopener"
+		><p class="text-center">Try reloading...</p></a
+	>
 </main>
 
 <style>

@@ -14,11 +14,13 @@
 
 <svelte:head>
 	<title>{$page.status} {$page.error.message} - SakyStatus</title>
-  <meta name="robots" content="noindex, nofollow" />
-  <meta name="googlebot" content="noindex, nofollow" />
+	<meta name="robots" content="noindex, nofollow" />
+	<meta name="googlebot" content="noindex, nofollow" />
 </svelte:head>
 
-<header class="mt-10"><h1 class="mb-2 text-center">{$page.status} {$page.error.message}</h1></header>
+<header class="mt-10">
+	<h1 class="mb-2 text-center">{$page.status} {$page.error.message}</h1>
+</header>
 <main>
 	<div
 		class="mb-5 flex items-center p-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:text-red-400 dark:border-red-800"
@@ -41,7 +43,9 @@
 		</div>
 	</div>
 
-	<a href="/monitors" title="SakyStatus" rel="noopener"><p class="text-center">Go to the homepage</p></a>
+	<a href="/monitors" title="SakyStatus" rel="noopener"
+		><p class="text-center">Go to the homepage</p></a
+	>
 </main>
 
 <style>

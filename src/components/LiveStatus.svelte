@@ -2,26 +2,25 @@
 	import { dev } from '$app/environment';
 	import Error from './Error.svelte';
 	import Loader from './Loader.svelte';
-	
-    let apiUrl;
-    if (dev) {
-        apiUrl = '//local-w10.sakynasty.com/api/api/uptimerobot/monitors';
-    } else {
-        apiUrl = '//api.sakynasty.com/api/uptimerobot/monitors';
-    }
 
-    const getUptime = async () => {
-        const res = await fetch(apiUrl);
-        const api = await res.json();
-        return api;
-    };
+	let apiUrl;
+	if (dev) {
+		apiUrl = '//local-w10.sakynasty.com/api/api/uptimerobot/monitors';
+	} else {
+		apiUrl = '//api.sakynasty.com/api/uptimerobot/monitors';
+	}
+
+	const getUptime = async () => {
+		const res = await fetch(apiUrl);
+		const api = await res.json();
+		return api;
+	};
 </script>
-
 
 {#await getUptime()}
 	<div class="f changed">
 		<h2>Live Status</h2>
-        <p>Total monitoring: 0/0</p>
+		<p>Total monitoring: 0/0</p>
 	</div>
 	<section class="live-status">
 		<Loader />
@@ -29,12 +28,14 @@
 {:then api}
 	<div class="f changed">
 		<h2>Live Status</h2>
-		<p>Total monitoring: {api.data.pagination.total-1}/{api.data.pagination.total}</p>
+		<p>Total monitoring: {api.data.pagination.total - 1}/{api.data.pagination.total}</p>
 	</div>
 	<section class="live-status">
 		{#if api.api.status.message == 'success'}
 			{#each api.data.monitors as monitors}
-				<article class={`id-${monitors.id} is ${monitors.status} dark:bg-neutral-800 dark:text-neutral-200 bg-neutral-200 text-neutral-800 border-none`}>
+				<article
+					class={`id-${monitors.id} is ${monitors.status} dark:bg-neutral-800 dark:text-neutral-200 bg-neutral-200 text-neutral-800 border-none`}
+				>
 					<h4>
 						<img
 							class="icon inline"
@@ -50,7 +51,7 @@
 							rel="noopener nofollow"
 							class="link">{monitors.friendly_name}</a
 						>-->
-                       <a
+						<a
 							href={`${monitors.url}`}
 							title={`Go to ${monitors.friendly_name}`}
 							target="_blank"
