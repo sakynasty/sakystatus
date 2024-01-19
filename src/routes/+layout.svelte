@@ -10,9 +10,9 @@
 <svelte:head>
 	<meta property="og:type" content="website" />
 	<meta property="og:locale" content="en" />
-	<link rel="icon" type="image/png" href="/assets/img/favicon.png" />
-	<meta property="twitter:image" content="/assets/img/banner.jpg" />
-	<meta property="og:image" content="/assets/img/banner.jpg" />
+	<link rel="icon" type="image/png" href="/favicon.png" />
+	<meta property="twitter:image" content="/banner.jpg" />
+	<meta property="og:image" content="/banner.jpg" />
 	<meta property="twitter:card" content="summary_large_image" />
 	<link rel="stylesheet" href="/assets/css/fa-all.min.css" />
 	<script type="text/javascript" src="/assets/js/fa-all.min.js"></script>
