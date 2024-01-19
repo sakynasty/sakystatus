@@ -1,3 +1,14 @@
+<script>
+	/**
+	 * @type {string}
+	 */
+	 export let name;
+	 /**
+	 * @type {string}
+	 */
+	 export let page;
+</script>
+
 <main>
 	<div
 		class="mb-5 flex items-center p-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:text-red-400 dark:border-red-800"
@@ -16,12 +27,12 @@
 		</svg>
 		<span class="sr-only">Info</span>
 		<div>
-			<p class="lead"><b>An error occurred</b> in trying to get the latest status details.</p>
+			<p class="lead"><b>An error occurred</b> in trying to get the latest {name} details.</p>
 			<p>You can try again in a few moments.</p>
 		</div>
 	</div>
 
-	<a href="/monitors" title="SakyStatus" rel="noopener"
+	<a href={page} title="Try reloading..." rel="noopener"
 		><p class="text-center">Try reloading...</p></a
 	>
 </main>

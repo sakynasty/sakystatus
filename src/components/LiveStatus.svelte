@@ -3,11 +3,16 @@
 	import Error from './Error.svelte';
 	import Loader from './Loader.svelte';
 
+	/**
+	 * @type {RequestInfo | URL}
+	 */
 	let apiUrl;
 	if (dev) {
 		apiUrl = '//local-w10.sakynasty.com/api/api/uptimerobot/monitors';
+		console.info(`[LOC](SakyStatus) LiveStatus: Connected to All Monitor with API(${apiUrl})`);
 	} else {
 		apiUrl = '//api.sakynasty.com/api/uptimerobot/monitors';
+		console.info(`[LOC](SakyStatus) LiveStatus: Connected to All Monitor with API(${apiUrl})`);
 	}
 
 	const getUptime = async () => {
@@ -44,20 +49,20 @@
 							width="17"
 							height="17"
 						/>
-						<!--<a
+						<a
 							href={`/monitors/${monitors.id}/logs`}
 							title={`${monitors.friendly_name}'s Logs`}
 							target="_self"
 							rel="noopener nofollow"
 							class="link">{monitors.friendly_name}</a
-						>-->
-						<a
+						>
+						<!--<a
 							href={`${monitors.url}`}
 							title={`Go to ${monitors.friendly_name}`}
 							target="_blank"
 							rel="noopener nofollow"
 							class="link">{monitors.friendly_name}</a
-						>
+						>-->
 					</h4>
 					<div>
 						Average: {monitors.average_response_time}MS for {monitors.all_time_uptime_ratio}%UP
@@ -65,11 +70,11 @@
 				</article>
 			{/each}
 		{:else}
-			<Error />
+			<Error name="status" page="/monitors" />
 		{/if}
 	</section>
 {:catch error}
-	<Error />
+	<Error name="status" page="/monitors" />
 {/await}
 
 <style>

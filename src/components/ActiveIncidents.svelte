@@ -2,11 +2,16 @@
 	import Loader from './Loader.svelte';
 	import { dev } from '$app/environment';
 
+	/**
+	 * @type {RequestInfo | URL}
+	 */
 	let apiUrl;
 	if (dev) {
 		apiUrl = '//local-w10.sakynasty.com/api/api/uptimerobot/monitors';
+		console.info(`[LOC](SakyStatus) ActiveIncidents: Connected to All Monitor with API(${apiUrl})`);
 	} else {
 		apiUrl = '//api.sakynasty.com/api/uptimerobot/monitors';
+		console.info(`[LOC](SakyStatus) ActiveIncidents: Connected to All Monitor with API(${apiUrl})`);
 	}
 
 	const getUptime = async () => {
@@ -15,6 +20,9 @@
 		return api;
 	};
 
+	/**
+	 * @param {{ length: any; filter: (arg0: (monitor: any) => boolean) => { (): any; new (): any; length: any; }; }} monitors
+	 */
 	function calculateGlobalUptime(monitors) {
 		const totalMonitors = monitors.length;
 		if (totalMonitors === 0) {
@@ -36,7 +44,7 @@
 	<Loader />
 {:then api}
 	<section>
-		{#if calculateGlobalUptime(api.data.monitors) >= 80}
+		{#if calculateGlobalUptime(api.data.monitors) >= 100}
 			<div class={`text-up dark:text-up ${alertClass}`}>
 				<i class={`fa-solid fa-circle-check ${svgClass}`}></i>
 				<span class="sr-only">Info</span>
@@ -44,7 +52,7 @@
 					<span class="font-medium">Success!</span> All systems are operational
 				</div>
 			</div>
-		{:else if calculateGlobalUptime(api.data.monitors) >= 50}
+		{:else if calculateGlobalUptime(api.data.monitors) >= 0}
 			<div class={`text-degraded dark:text-degraded ${alertClass}`}>
 				<i class={`fa-solid fa-circle-exclamation ${svgClass}`}></i>
 				<span class="sr-only">Info</span>

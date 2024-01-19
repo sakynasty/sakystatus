@@ -1,5 +1,5 @@
-<div class="loading">
-	<svg width="38" height="38" xmlns="http://www.w3.org/2000/svg" stroke="#aaa" title="SakyStatus">
+<div class="loading flex justify-center items-center">
+	<svg width="38" height="38" xmlns="http://www.w3.org/2000/svg" stroke="#aaa">
 		<g fill="none" fill-rule="evenodd">
 			<g transform="translate(1 1)" stroke-width="2">
 				<circle stroke-opacity=".5" cx="18" cy="18" r="18" />
