@@ -92,7 +92,7 @@
 	}
 
 	let monitorName;
-	if (data.name > 5) {
+	if (data.name.length > 5) {
 		monitorName = data.name.charAt(0).toUpperCase() + data.name.substring(1);
 	} else {
 		monitorName = data.name.toUpperCase();
