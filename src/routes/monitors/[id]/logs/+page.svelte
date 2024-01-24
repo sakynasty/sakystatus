@@ -4,7 +4,7 @@
 	import { dev } from "$app/environment";
 	import Time from "svelte-time";
 	import Error from "../../../../components/Error.svelte";
-	import Loader from "../../../../components/Loader.svelte";
+	import Loader from "../../../../components/Loading/Loader.svelte";
 	
 	/**
 	 * @type {RequestInfo | URL}
@@ -24,6 +24,9 @@
 		return api;
 	};
 
+	/**
+	 * @param {number} duration
+	 */
 	function formatDuration(duration) {
         const seconds = duration % 60;
         const minutes = Math.floor((duration / 60) % 60);

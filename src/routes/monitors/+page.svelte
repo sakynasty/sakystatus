@@ -1,6 +1,42 @@
 <script>
 	import ActiveIncidents from '../../components/ActiveIncidents.svelte';
 	import LiveStatus from '../../components/LiveStatus.svelte';
+	import Loader from '../../components/Loading/Loader.svelte';
+	import Error from '../../components/Error.svelte';
+	import { env } from '$env/dynamic/public'
+	import { dev } from '$app/environment';
+
+	/**
+	 * @type {RequestInfo | URL}
+	 */
+	let apiUrl;
+	if (dev) {
+		apiUrl = "//"+env.PUBLIC_API_LINK;		
+	} 
+
+	apiUrl = "//"+env.PUBLIC_API_LINK;
+	console.info(`[LOC](SakyStatus) ActiveIncidents: Connected to All Monitors with API(${apiUrl.replace("//", "")})`);
+
+	const getUptime = async () => {
+		const res = await fetch(apiUrl);
+		const api = await res.json();
+		return api;
+	};
+
+	/**
+	 * @param {{ length: any; filter: (arg0: (monitor: any) => boolean) => { (): any; new (): any; length: any; }; }} monitors
+	 */
+	 function calculateGlobalUptime(monitors) {
+		const totalMonitors = monitors.length;
+		if (totalMonitors === 0) {
+			return 0;
+		}
+
+		const totalUptimeMonitors = monitors.filter((monitor) => monitor.status === 'up').length;
+		const globalUptimePercentage = (totalUptimeMonitors / totalMonitors) * 100;
+		const roundedGlobalUptime = globalUptimePercentage.toFixed(0);
+		return roundedGlobalUptime;
+	}
 </script>
 
 <svelte:head>
@@ -44,6 +80,12 @@
 </header>
 
 <main>
-	<ActiveIncidents />
-	<LiveStatus />
+	{#await getUptime()}
+		<Loader />
+	{:then api}
+		<ActiveIncidents percent={calculateGlobalUptime(api.data.monitors)} error="false" />
+		<LiveStatus pagination={api.data.pagination.total} monitors={api.data.monitors} error="false" />
+	{:catch error}
+		<Error name="status" page="/monitors" error={error} />
+	{/await}
 </main>

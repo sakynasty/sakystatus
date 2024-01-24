@@ -7,6 +7,11 @@
 	 * @type {string}
 	 */
 	 export let page;
+	 /**
+	 * @type {any}
+	 */
+	 export let error;
+	 console.log("[LOC](SakyStatus) Error: Error... Details: "+error);
 </script>
 
 <main>

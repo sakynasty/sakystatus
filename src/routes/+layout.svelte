@@ -2,9 +2,9 @@
 	import '$lib/css/tailwind.css';
 	import '$lib/css/global.css';
 	import '$lib/css/icon-bar.css';
-	import Footer from '../components/Footer.svelte';
-	import IconBar from '../components/IconBar.svelte';
-	import Navbar from '../components/Navbar.svelte';
+	import Footer from '../components/Layout/Footer.svelte';
+	import IconBar from '../components/Layout/IconBar.svelte';
+	import Navbar from '../components/Layout/Navbar.svelte';
 </script>
 
 <svelte:head>
