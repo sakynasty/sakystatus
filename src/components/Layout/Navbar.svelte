@@ -10,15 +10,15 @@
 	let:hidden
 	let:toggle
 >
-	<NavBrand href="/monitors">
+	<NavBrand href="/monitors" title="SakyStatus" target="_self" rel="noopener">
 		<img src={icon} class="mr-3 h-6 sm:h-9" alt="SakyStatus Logo" />
 		<span class="self-center whitespace-nowrap text-xl font-semibold"> SakyStatus </span>
 	</NavBrand>
 	<NavHamburger on:click={toggle} />
 	<NavUl {hidden}>
-		<NavLi href="//sakynasty.com" title="Sakynasty" rel="noopener" {activeClass}>Main</NavLi>
-		<NavLi href="//rp.sakynasty.com" title="SakyRP" rel="noopener" {activeClass}>RolePlay</NavLi>
-		<NavLi href="/monitors" title="SakyStatus" rel="noopener" active={true} {activeClass}
+		<NavLi href="//sakynasty.com" title="Sakynasty" rel="noopener" target="_self"  {activeClass}>Main</NavLi>
+		<NavLi href="//rp.sakynasty.com" title="SakyRP" rel="noopener" target="_self"  {activeClass}>RolePlay</NavLi>
+		<NavLi href="/monitors" title="SakyStatus" rel="noopener" target="_self"  active={true} {activeClass}
 			>Status</NavLi
 		>
 		<NavLi

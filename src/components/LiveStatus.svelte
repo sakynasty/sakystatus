@@ -13,13 +13,45 @@
 	 * @type {string}
 	 */
 	export let error;
+	if (error == "true") {
+		console.error('[LOC](SakyStatus) LiveStatus: ' + error);
+	}
+
+	/**
+	 * @param {any} friendly_name
+	 */
+	function adaptNameForLink(friendly_name) {
+		let adaptedName;
+		let name = friendly_name;
+
+		if (name.match(/[\(\[\{#]/)) {
+			adaptedName = name.replace(/.*\(([^)]*)\).*/, '$1');
+		} else {
+			adaptedName = name;
+		}
+
+		adaptedName = adaptedName.replace(/\[[^\]]*\]|\{[^}]*\}|#(?:[a-zA-Z0-9]+)?/g, '');
+		adaptedName = adaptedName.replace(/\s+/g, '-').toLowerCase();
+		return adaptedName;
+	}
+
+
+	/**
+	 * @param {any} friendly_name
+	 */
+	function adaptNameForList(friendly_name) {
+		let cleanedName = friendly_name.replace(/(\([^)]*\)|\[[^\]]*\]|\{[^}]*\})/g, '');
+		cleanedName = cleanedName.trim();
+		return cleanedName;
+	}
+
 </script>
 
 <div class="f">
 	<h2>Live Status</h2>
-	<p>Total monitoring: {pagination - 1}/{pagination}</p>
+	<p>Total visible monitoring: {pagination - 1}/{pagination}</p>
 </div>
-<section class="live-status">
+<section class="live-status mt-2">
 	{#each monitors as monitor}
 		<article
 			class={`id-${monitor.id} is ${monitor.status} dark:bg-neutral-800 dark:text-neutral-200 bg-neutral-200 text-neutral-800 border-none`}
@@ -33,11 +65,11 @@
 					height="17"
 				/>
 				<a
-					href={`/monitors/${monitor.id}/logs`}
+					href={`/monitors/${monitor.id}/${adaptNameForLink(monitor.friendly_name)}/logs`}
 					title={`${monitor.friendly_name}'s Logs`}
 					target="_self"
 					rel="noopener nofollow"
-					class="link">{monitor.friendly_name}</a
+					class="link">{adaptNameForList(monitor.friendly_name)}</a
 				>
 				<!--<a
 					href={`${monitor.url}`}

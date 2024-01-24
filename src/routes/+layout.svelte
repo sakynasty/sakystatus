@@ -8,6 +8,8 @@
 </script>
 
 <svelte:head>
+	<meta name="author" content="Sakynasty" />
+	<meta property="og:site_name" content="SakyStatus" />
 	<meta property="og:type" content="website" />
 	<meta property="og:locale" content="en" />
 	<link rel="icon" type="image/png" href="/favicon.png" />
@@ -19,9 +21,13 @@
 	<script type="text/javascript" src="/assets/js/whitelisted.js"></script>
 </svelte:head>
 
-<IconBar />
-<Navbar />
-<div class="container">
-	<slot />
-</div>
+<header>
+	<IconBar />
+	<Navbar />
+</header>
+<main>
+	<div class="container">
+		<slot />
+	</div>
+</main>
 <Footer />

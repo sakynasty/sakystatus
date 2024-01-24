@@ -11,7 +11,7 @@
 	 * @type {any}
 	 */
 	export let error;
-	console.log('[LOC](SakyStatus) Error: ' + error);
+	console.error('[LOC](SakyStatus) Error: ' + error);
 </script>
 
 <main>

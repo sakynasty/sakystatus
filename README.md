@@ -17,9 +17,9 @@ Inside of my SvelteKit project for SakyStatus, you'll see the following folders 
 ```/
 ├── static/
 │   ├── assets/
-│   │    └── css/
+│   │    ├── css/
 │   │    │   └── *.css
-│   │    └── js/
+│   │    ├── js/
 │   │    │   └── *.js
 │   │    └── webfonts/
 │   │        └── *.ttf, *.woff2
@@ -28,7 +28,7 @@ Inside of my SvelteKit project for SakyStatus, you'll see the following folders 
 │   └── favicon.png
 ├── src/
 │   ├── lib/
-│   │    └── css/
+│   │    ├── css/
 │   │    │   └── *.css
 │   │    └── img/
 │   │        └── *.png
@@ -42,11 +42,15 @@ Inside of my SvelteKit project for SakyStatus, you'll see the following folders 
 │   │    ├── ActiveIncidents.svelte
 │   │    ├── Error.svelte
 │   │    └── LiveStatus.svelte
+│   ├── params/
+│   │   ├── monitorsId.js # Params for URL with ID
+│   │   └── monitorsName.js # Params for URL with Name
 │   ├── routes/
 │   │   ├── monitors/
-│   │   │   └── [id]/ # Auto-Generative ID with API
-│   │   │   │   └── logs/
-│   │   │   │       └── +page.svelte
+│   │   │   ├── [id=monitorsId]/ # Auto-Generative ID with API and monitorsId params
+│   │   │   │   └── [name=monitorsName]/ # Auto-Generative Name with API and monitorsName params
+│   │   │   │       └──logs/
+│   │   │   │          └── +page.svelte, +page.server.js
 │   │   │   └── +page.svelte
 │   │   ├── +error.svelte
 │   │   ├── +layout.svelte

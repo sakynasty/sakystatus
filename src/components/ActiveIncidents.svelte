@@ -7,6 +7,9 @@
 	 * @type {string}
 	 */
 	export let error;
+	if (error == "true") {
+		console.error('[LOC](SakyStatus) ActiveIncidents: ' + error);
+	}
 
 	let svgClass = 'flex-shrink-0 inline w-4 h-4 me-3';
 	let alertClass =

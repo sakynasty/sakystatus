@@ -3,26 +3,54 @@
 	export let data;
 	import { dev } from '$app/environment';
 	import Time from 'svelte-time';
-	import Error from '../../../../components/Error.svelte';
-	import Loader from '../../../../components/Loading/Loader.svelte';
+	import Error from '../../../../../components/Error.svelte';
+	import Loader from '../../../../../components/Loading/Loader.svelte';
+	import { env } from '$env/dynamic/public';
 
 	/**
 	 * @type {RequestInfo | URL}
 	 */
 	let apiUrl;
 	if (dev) {
-		apiUrl = `//local-w10.sakynasty.com/api/api/uptimerobot/monitor?id=${data.id}`;
-		console.info(`[LOC](SakyStatus) +page: Connected to Monitor ID°${data.id} with API(${apiUrl})`);
+		apiUrl = `https://${env.PUBLIC_API_LOGS_LINK_DEV}?id=${data.id}`;
 	} else {
-		apiUrl = `//api.sakynasty.com/api/uptimerobot/monitor?id=${data.id}`;
-		console.info(`[LOC](SakyStatus) +page: Connected to Monitor ID°${data.id} with API(${apiUrl})`);
+		apiUrl = `https://${env.PUBLIC_API_LOGS_LINK}?id=${data.id}`;
 	}
+	console.info(`[LOC](SakyStatus) +page: Connected to Monitor #${data.id} with API(${apiUrl.replace("//", "").replace('https:', '')})`);
+
 
 	const getUptime = async () => {
 		const res = await fetch(apiUrl);
 		const api = await res.json();
 		return api;
 	};
+
+	/**
+	 * @param {any} friendly_name
+	 */
+	 function potentialShortName(friendly_name) {
+		let shortedName;
+		let name = friendly_name;
+
+		if (name.match(/[\(\[\{#]/)) {
+			shortedName = name.replace(/.*\(([^)]*)\).*/, '$1').toUpperCase();
+		} else {
+			shortedName = name;
+		}
+
+		shortedName = shortedName.replace(/\[[^\]]*\]|\{[^}]*\}|#(?:[a-zA-Z0-9]+)?/g, '');
+		shortedName = shortedName.replace(/\s+/g, '-');
+		return shortedName;
+	}
+
+	/**
+	 * @param {any} friendly_name
+	 */
+	 function cleanedName(friendly_name) {
+		let cleanedName = friendly_name.replace(/(\([^)]*\)|\[[^\]]*\]|\{[^}]*\})/g, '');
+		cleanedName = cleanedName.trim();
+		return cleanedName;
+	}
 
 	/**
 	 * @param {number} duration
@@ -61,36 +89,64 @@
 
 		return result;
 	}
+
+	let monitorName;
+	if (data.name > 5) {
+		monitorName = data.name.charAt(0).toUpperCase()+data.name.substring(1);
+	} else {
+		monitorName = data.name.toUpperCase();
+	}
+
+	var title = `${monitorName}'s Logs - SakyStatus`;
+	var description = `${monitorName} is a page/service of Sakynasty, on this page you can get more details about its status and logs.`
+	var currentPage = `https://status.sakynasty.com/monitors/${data.id}/${data.name}/logs`;
 </script>
 
 <svelte:head>
-	<meta name="robots" content="noindex, nofollow" />
-	<meta name="googlebot" content="noindex, nofollow" />
-	<title>Monitor ID°{data.id} - SakyStatus</title>
+	<title>{title}</title>
+	<meta property="og:title" content={title} />
+	<meta property="twitter:title" content={title} />
+	<meta
+		name="description"
+		content={description}
+	/>
+	<meta
+		property="og:description"
+		content={description}
+	/>
+	<meta
+		property="twitter:description"
+		content={description}
+	/>
+	<meta property="og:url" content={currentPage} />
+	<meta property="twitter:url" content={currentPage} />
+	<link href={currentPage} rel="canonical" />
+	<meta name="robots" content="index, follow" />
+	<meta name="googlebot" content="index, follow" />
 </svelte:head>
+
 
 {#await getUptime()}
 	<div class="mt-10">
 		<Loader />
 	</div>
 {:then api}
-	<header class="mb-1 mt-5">
+	<div class="mb-1 mt-5">
 		<h1
 			class="text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-4xl dark:text-white"
 		>
-			ID°{api.data.monitors[0].id}
-		</h1>
-		<p class="text-md font-normal text-gray-500 lg:text-lg dark:text-gray-400">
-			<a
+		<a
 				href={api.data.monitors[0].url}
 				title={`Go to ${api.data.monitors[0].friendly_name}`}
 				rel="noopener"
 				target="_blank"
-				><mark
+				>{potentialShortName(api.data.monitors[0].friendly_name)}</a> <small>#{api.data.monitors[0].id}</small>
+		</h1>
+		<p class="text-md font-normal text-gray-500 lg:text-lg dark:text-gray-400">
+			<mark
 					class="px-1 font-bold bg-neutral-900 text-neutral-100 dark:bg-neutral-100 dark:text-neutral-900 rounded-md"
-					><b>{api.data.monitors[0].friendly_name}</b></mark
-				></a
-			>
+					><b>{cleanedName(api.data.monitors[0].friendly_name)}</b></mark
+				>
 			was currently in the
 			<mark
 				class="px-1 font-bold bg-neutral-900 text-{api.data.monitors[0]
@@ -98,8 +154,8 @@
 				>{api.data.monitors[0].status.toUpperCase()}</mark
 			> state during the last 5 minutes.
 		</p>
-	</header>
-	<main>
+	</div>
+	<div>
 		<h2><b>Overall uptime</b></h2>
 		<p>{api.data.monitors[0].all_time_uptime_ratio}%UP</p>
 		<h2><b>Average response</b></h2>
@@ -145,9 +201,9 @@
 				</li>
 			{/each}
 		</ol>
-	</main>
+	</div>
 {:catch error}
 	<div class="mt-10">
-		<Error name="logs" page={`/monitors/${data.id}/logs`} />
+		<Error name="logs" page={`/monitors/${data.id}/logs`} error={error} />
 	</div>
 {/await}

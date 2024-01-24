@@ -11,12 +11,12 @@
 	 */
 	let apiUrl;
 	if (dev) {
-		apiUrl = '//' + env.PUBLIC_API_LINK;
+		apiUrl = 'https://' + env.PUBLIC_API_LINK_DEV;
+	} else {
+		apiUrl = 'https://' + env.PUBLIC_API_LINK;
 	}
-
-	apiUrl = '//' + env.PUBLIC_API_LINK;
 	console.info(
-		`[LOC](SakyStatus) ActiveIncidents: Connected to All Monitors with API(${apiUrl.replace('//', '')})`
+		`[LOC](SakyStatus) +page: Connected to All Monitors with API(${apiUrl.replace('//', '').replace('https:', '')})`
 	);
 
 	const getUptime = async () => {
@@ -39,29 +39,31 @@
 		const roundedGlobalUptime = globalUptimePercentage.toFixed(0);
 		return roundedGlobalUptime;
 	}
+
+	var title = "SakyStatus";
+	var description = "SakyStatus is a simple status page for services and website used/created by Sakynasty.";
+	var currentPage = "https://status.sakynasty.com/monitors";
 </script>
 
 <svelte:head>
-	<meta name="author" content="Sakynasty" />
-	<meta property="og:site_name" content="SakyStatus" />
-	<title>SakyStatus</title>
-	<meta property="og:title" content="SakyStatus" />
-	<meta property="twitter:title" content="SakyStatus" />
+	<title>{title}</title>
+	<meta property="og:title" content={title} />
+	<meta property="twitter:title" content={title} />
 	<meta
 		name="description"
-		content="SakyStatus is a simple status page for services and website used/created by Sakynasty."
+		content={description}
 	/>
 	<meta
 		property="og:description"
-		content="SakyStatus is a simple status page for services and website used/created by Sakynasty."
+		content={description}
 	/>
 	<meta
 		property="twitter:description"
-		content="SakyStatus is a simple status page for services and website used/created by Sakynasty."
+		content={description}
 	/>
-	<meta property="og:url" content="https://status.sakynasty.com/monitors" />
-	<meta property="twitter:url" content="https://status.sakynasty.com/monitors" />
-	<link href="https://status.sakynasty.com/monitors" rel="canonical" />
+	<meta property="og:url" content={currentPage} />
+	<meta property="twitter:url" content={currentPage} />
+	<link href={currentPage} rel="canonical" />
 	<meta name="robots" content="index, follow" />
 	<meta name="googlebot" content="index, follow" />
 </svelte:head>
@@ -88,6 +90,8 @@
 		<ActiveIncidents percent={calculateGlobalUptime(api.data.monitors)} error="false" />
 		<LiveStatus pagination={api.data.pagination.total} monitors={api.data.monitors} error="false" />
 	{:catch error}
-		<Error name="status" page="/monitors" {error} />
+		<div class="mt-3">
+			<Error name="status" page="/monitors" {error} />
+		</div>
 	{/await}
 </main>
