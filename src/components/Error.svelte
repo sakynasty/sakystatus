@@ -2,16 +2,16 @@
 	/**
 	 * @type {string}
 	 */
-	 export let name;
-	 /**
+	export let name;
+	/**
 	 * @type {string}
 	 */
-	 export let page;
-	 /**
+	export let page;
+	/**
 	 * @type {any}
 	 */
-	 export let error;
-	 console.log("[LOC](SakyStatus) Error: Error... Details: "+error);
+	export let error;
+	console.log('[LOC](SakyStatus) Error: ' + error);
 </script>
 
 <main>

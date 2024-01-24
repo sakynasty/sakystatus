@@ -1,5 +1,5 @@
 <script>
-	import { env } from "$env/dynamic/public";
+	import { env } from '$env/dynamic/public';
 
 	/**
 	 * @type {number}
@@ -17,12 +17,12 @@
 
 <div class="f">
 	<h2>Live Status</h2>
-	<p>Total monitoring: {pagination-1}/{pagination}</p>
+	<p>Total monitoring: {pagination - 1}/{pagination}</p>
 </div>
 <section class="live-status">
 	{#each monitors as monitor}
 		<article
-		class={`id-${monitor.id} is ${monitor.status} dark:bg-neutral-800 dark:text-neutral-200 bg-neutral-200 text-neutral-800 border-none`}
+			class={`id-${monitor.id} is ${monitor.status} dark:bg-neutral-800 dark:text-neutral-200 bg-neutral-200 text-neutral-800 border-none`}
 		>
 			<h4>
 				<img

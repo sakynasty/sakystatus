@@ -13,7 +13,7 @@
 		'flex items-center p-4 mb-4 text-sm rounded-lg dark:bg-neutral-800 bg-neutral-200';
 </script>
 
-{#if error = "false"}
+{#if (error = 'false')}
 	<section>
 		{#if percent >= 100}
 			<div class={`text-up dark:text-up ${alertClass}`}>
