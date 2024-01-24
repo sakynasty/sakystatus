@@ -7,7 +7,7 @@
 	 * @type {string}
 	 */
 	export let error;
-	if (error == "true") {
+	if (error == 'true') {
 		console.error('[LOC](SakyStatus) ActiveIncidents: ' + error);
 	}
 

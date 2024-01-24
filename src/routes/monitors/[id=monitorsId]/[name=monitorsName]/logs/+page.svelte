@@ -16,8 +16,9 @@
 	} else {
 		apiUrl = `https://${env.PUBLIC_API_LOGS_LINK}?id=${data.id}`;
 	}
-	console.info(`[LOC](SakyStatus) +page: Connected to Monitor #${data.id} with API(${apiUrl.replace("//", "").replace('https:', '')})`);
-
+	console.info(
+		`[LOC](SakyStatus) +page: Connected to Monitor #${data.id} with API(${apiUrl.replace('//', '').replace('https:', '')})`
+	);
 
 	const getUptime = async () => {
 		const res = await fetch(apiUrl);
@@ -28,7 +29,7 @@
 	/**
 	 * @param {any} friendly_name
 	 */
-	 function potentialShortName(friendly_name) {
+	function potentialShortName(friendly_name) {
 		let shortedName;
 		let name = friendly_name;
 
@@ -46,7 +47,7 @@
 	/**
 	 * @param {any} friendly_name
 	 */
-	 function cleanedName(friendly_name) {
+	function cleanedName(friendly_name) {
 		let cleanedName = friendly_name.replace(/(\([^)]*\)|\[[^\]]*\]|\{[^}]*\})/g, '');
 		cleanedName = cleanedName.trim();
 		return cleanedName;
@@ -92,13 +93,13 @@
 
 	let monitorName;
 	if (data.name > 5) {
-		monitorName = data.name.charAt(0).toUpperCase()+data.name.substring(1);
+		monitorName = data.name.charAt(0).toUpperCase() + data.name.substring(1);
 	} else {
 		monitorName = data.name.toUpperCase();
 	}
 
 	var title = `${monitorName}'s Logs - SakyStatus`;
-	var description = `${monitorName} is a page/service of Sakynasty, on this page you can get more details about its status and logs.`
+	var description = `${monitorName} is a page/service of Sakynasty, on this page you can get more details about its status and logs.`;
 	var currentPage = `https://status.sakynasty.com/monitors/${data.id}/${data.name}/logs`;
 </script>
 
@@ -106,25 +107,15 @@
 	<title>{title}</title>
 	<meta property="og:title" content={title} />
 	<meta property="twitter:title" content={title} />
-	<meta
-		name="description"
-		content={description}
-	/>
-	<meta
-		property="og:description"
-		content={description}
-	/>
-	<meta
-		property="twitter:description"
-		content={description}
-	/>
+	<meta name="description" content={description} />
+	<meta property="og:description" content={description} />
+	<meta property="twitter:description" content={description} />
 	<meta property="og:url" content={currentPage} />
 	<meta property="twitter:url" content={currentPage} />
 	<link href={currentPage} rel="canonical" />
 	<meta name="robots" content="index, follow" />
 	<meta name="googlebot" content="index, follow" />
 </svelte:head>
-
 
 {#await getUptime()}
 	<div class="mt-10">
@@ -135,18 +126,18 @@
 		<h1
 			class="text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-4xl dark:text-white"
 		>
-		<a
+			<a
 				href={api.data.monitors[0].url}
 				title={`Go to ${api.data.monitors[0].friendly_name}`}
 				rel="noopener"
-				target="_blank"
-				>{potentialShortName(api.data.monitors[0].friendly_name)}</a> <small>#{api.data.monitors[0].id}</small>
+				target="_blank">{potentialShortName(api.data.monitors[0].friendly_name)}</a
+			> <small>#{api.data.monitors[0].id}</small>
 		</h1>
 		<p class="text-md font-normal text-gray-500 lg:text-lg dark:text-gray-400">
 			<mark
-					class="px-1 font-bold bg-neutral-900 text-neutral-100 dark:bg-neutral-100 dark:text-neutral-900 rounded-md"
-					><b>{cleanedName(api.data.monitors[0].friendly_name)}</b></mark
-				>
+				class="px-1 font-bold bg-neutral-900 text-neutral-100 dark:bg-neutral-100 dark:text-neutral-900 rounded-md"
+				><b>{cleanedName(api.data.monitors[0].friendly_name)}</b></mark
+			>
 			was currently in the
 			<mark
 				class="px-1 font-bold bg-neutral-900 text-{api.data.monitors[0]
@@ -204,6 +195,6 @@
 	</div>
 {:catch error}
 	<div class="mt-10">
-		<Error name="logs" page={`/monitors/${data.id}/logs`} error={error} />
+		<Error name="logs" page={`/monitors/${data.id}/logs`} {error} />
 	</div>
 {/await}

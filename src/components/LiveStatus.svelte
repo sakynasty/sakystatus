@@ -13,7 +13,7 @@
 	 * @type {string}
 	 */
 	export let error;
-	if (error == "true") {
+	if (error == 'true') {
 		console.error('[LOC](SakyStatus) LiveStatus: ' + error);
 	}
 
@@ -35,7 +35,6 @@
 		return adaptedName;
 	}
 
-
 	/**
 	 * @param {any} friendly_name
 	 */
@@ -44,7 +43,6 @@
 		cleanedName = cleanedName.trim();
 		return cleanedName;
 	}
-
 </script>
 
 <div class="f">

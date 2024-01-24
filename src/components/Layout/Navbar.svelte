@@ -16,10 +16,19 @@
 	</NavBrand>
 	<NavHamburger on:click={toggle} />
 	<NavUl {hidden}>
-		<NavLi href="//sakynasty.com" title="Sakynasty" rel="noopener" target="_self"  {activeClass}>Main</NavLi>
-		<NavLi href="//rp.sakynasty.com" title="SakyRP" rel="noopener" target="_self"  {activeClass}>RolePlay</NavLi>
-		<NavLi href="/monitors" title="SakyStatus" rel="noopener" target="_self"  active={true} {activeClass}
-			>Status</NavLi
+		<NavLi href="//sakynasty.com" title="Sakynasty" rel="noopener" target="_self" {activeClass}
+			>Main</NavLi
+		>
+		<NavLi href="//rp.sakynasty.com" title="SakyRP" rel="noopener" target="_self" {activeClass}
+			>RolePlay</NavLi
+		>
+		<NavLi
+			href="/monitors"
+			title="SakyStatus"
+			rel="noopener"
+			target="_self"
+			active={true}
+			{activeClass}>Status</NavLi
 		>
 		<NavLi
 			href="//links.sakynasty.com"

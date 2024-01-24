@@ -15,5 +15,5 @@ yarn.lock
 
 # Ignore FA
 
-/assets/js/fa-all.min.js
-/assets/css/fa-all.min.css
+/static/assets/js/fa-all.min.js
+/static/assets/css/fa-all.min.css
