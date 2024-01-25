@@ -1,11 +1,11 @@
 <script>
 	/** @type {import('./$types').PageData} */
 	export let data;
+	import { env } from '$env/dynamic/public';
 	import { dev } from '$app/environment';
 	import Time from 'svelte-time';
 	import Error from '../../../../../components/Error.svelte';
-	import Loader from '../../../../../components/Loading/Loader.svelte';
-	import { env } from '$env/dynamic/public';
+	import LogsLoader from '../../../../../components/Loading/LogsLoader.svelte';
 
 	/**
 	 * @type {RequestInfo | URL}
@@ -91,12 +91,20 @@
 		return result;
 	}
 
+	/**
+	 * @type {string}
+	 */
 	let monitorName;
 	if (data.name.length > 5) {
 		monitorName = data.name.charAt(0).toUpperCase() + data.name.substring(1);
 	} else {
 		monitorName = data.name.toUpperCase();
 	}
+
+	/**
+	 * @type {string}
+	 */
+	let monitorId = data.id;
 
 	var title = `${monitorName}'s Logs - SakyStatus`;
 	var description = `${monitorName} is a page/service of Sakynasty, on this page you can get more details about its status and logs.`;
@@ -118,9 +126,7 @@
 </svelte:head>
 
 {#await getUptime()}
-	<div class="mt-10">
-		<Loader />
-	</div>
+	<LogsLoader name={monitorName} id={monitorId} />
 {:then api}
 	<div class="mb-1 mt-5">
 		<h1

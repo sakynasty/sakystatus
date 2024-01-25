@@ -1,7 +1,7 @@
 <script>
 	import ActiveIncidents from '../../components/ActiveIncidents.svelte';
 	import LiveStatus from '../../components/LiveStatus.svelte';
-	import Loader from '../../components/Loading/Loader.svelte';
+	import HomepageLoader from '../../components/Loading/HomepageLoader.svelte';
 	import Error from '../../components/Error.svelte';
 	import { env } from '$env/dynamic/public';
 	import { dev } from '$app/environment';
@@ -60,7 +60,7 @@
 	<meta name="googlebot" content="index, follow" />
 </svelte:head>
 
-<header class="mb-1 mt-5">
+<div class="mb-1 mt-5">
 	<h1
 		class="text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-4xl dark:text-white"
 	>
@@ -73,17 +73,17 @@
 			>Sakynasty</mark
 		>.
 	</p>
-</header>
+</div>
 
-<main>
+<div>
 	{#await getUptime()}
-		<Loader />
+		<HomepageLoader />
 	{:then api}
-		<ActiveIncidents percent={calculateGlobalUptime(api.data.monitors)} error="false" />
-		<LiveStatus pagination={api.data.pagination.total} monitors={api.data.monitors} error="false" />
+		<ActiveIncidents percent={calculateGlobalUptime(api.data.monitors)} status={api.api.status.message} />
+		<LiveStatus pagination={api.data.pagination.total} monitors={api.data.monitors} status={api.api.status.message} />
 	{:catch error}
 		<div class="mt-3">
 			<Error name="status" page="/monitors" {error} />
 		</div>
 	{/await}
-</main>
+</div>

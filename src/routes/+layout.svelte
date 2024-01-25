@@ -7,20 +7,6 @@
 	import Navbar from '../components/Layout/Navbar.svelte';
 </script>
 
-<svelte:head>
-	<meta name="author" content="Sakynasty" />
-	<meta property="og:site_name" content="SakyStatus" />
-	<meta property="og:type" content="website" />
-	<meta property="og:locale" content="en" />
-	<link rel="icon" type="image/png" href="/favicon.png" />
-	<meta property="twitter:image" content="/banner.jpg" />
-	<meta property="og:image" content="/banner.jpg" />
-	<meta property="twitter:card" content="summary_large_image" />
-	<link rel="stylesheet" href="/assets/css/fa-all.min.css" />
-	<script type="text/javascript" src="/assets/js/fa-all.min.js"></script>
-	<script type="text/javascript" src="/assets/js/whitelisted.js"></script>
-</svelte:head>
-
 <header>
 	<IconBar />
 	<Navbar />
