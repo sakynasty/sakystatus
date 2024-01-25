@@ -79,8 +79,15 @@
 	{#await getUptime()}
 		<HomepageLoader />
 	{:then api}
-		<ActiveIncidents percent={calculateGlobalUptime(api.data.monitors)} status={api.api.status.message} />
-		<LiveStatus pagination={api.data.pagination.total} monitors={api.data.monitors} status={api.api.status.message} />
+		<ActiveIncidents
+			percent={calculateGlobalUptime(api.data.monitors)}
+			status={api.api.status.message}
+		/>
+		<LiveStatus
+			pagination={api.data.pagination.total}
+			monitors={api.data.monitors}
+			status={api.api.status.message}
+		/>
 	{:catch error}
 		<div class="mt-3">
 			<Error name="status" page="/monitors" {error} />

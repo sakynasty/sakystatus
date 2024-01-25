@@ -19,7 +19,7 @@
 	 * @default error
 	 * @required
 	 */
-	export let status = "error";
+	export let status = 'error';
 	if (status == 'error') {
 		console.error('[LOC](SakyStatus) LiveStatus: Status is ' + status);
 	}
@@ -51,11 +51,11 @@
 		return cleanedName;
 	}
 
-	let divClass = "flex justify-between items-center flex-wrap";
-	let sectionClass = "live-status mt-2"; 
+	let divClass = 'flex justify-between items-center flex-wrap';
+	let sectionClass = 'live-status mt-2';
 </script>
 
-{#if status = "success"}
+{#if (status = 'success')}
 	<div class={divClass}>
 		<h2>Live Status</h2>
 		<p>Total visible monitoring: {pagination - 1}/{pagination}</p>
